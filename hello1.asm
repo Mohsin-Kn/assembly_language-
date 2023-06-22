@@ -1,0 +1,13 @@
+[org 0x100]
+
+mov dl,5
+
+mov ah,0x1
+
+int 0x21
+
+mov ax,0x4C00
+
+int 0x21
+
+;string DB 'Hello World', '$'

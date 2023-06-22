@@ -1,0 +1,11 @@
+[org 0x0100]
+
+mov ax, 0x4080
+
+mov bx, 0x8080
+
+Shld ax,bx,1
+
+mov ax, 0x4c00
+
+int 0x21

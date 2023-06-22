@@ -1,0 +1,92 @@
+[org Ok0100]
+
+jmp start
+
+
+dividend: dw 19
+Divisor: dw 7
+count: dw 8
+a: dw 0
+data: dw 2
+
+start:
+
+xor ax, ax
+xor bx, bx
+xor cx, cx
+xor dx, cx
+
+mov al,[dividend]
+mov bl,[divisor]
+mov al,[count]
+mov al,[a]
+
+
+funct:
+
+	rcl al,1
+	rcl dl,1
+	clc
+
+	sub dl,bl
+	jns funct2
+	jmp funct1
+
+funct1:	
+	push ax
+	push bx
+	mov bl,2
+	div bl
+
+	cmp ah,0
+	je funct4
+	pop bx
+	pop ax
+	
+	sub al,1
+	add dl,bl
+
+	jmp funct3
+
+
+funct2:	
+	push ax
+	push bx
+	mov bl,2
+	div bl
+
+	cmp ah,0
+	je funct3
+	jmp funct5
+funct3:	
+
+	sub cl,1
+	cmp cl,1
+	jne funct
+	jmp end
+
+funct5:	
+	pop bx
+	pop ax
+	add al,1
+	
+	jmp funct3
+
+funct4:	
+	pop bx
+	pop ax
+	add dl,b1
+	
+	jmp funct3
+
+end:
+
+mov ax,0x4c00
+
+int 0x21
+
+
+
+
+
+
